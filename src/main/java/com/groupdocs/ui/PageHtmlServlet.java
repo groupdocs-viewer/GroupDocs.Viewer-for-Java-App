@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.awt.Color;
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,23 +36,25 @@ public class PageHtmlServlet
         	filename = Utils.downloadToStorage(filename);        
         response.setContentType("text/html");
         ViewerHtmlHandler handler = Utils.createViewerHtmlHandler();
-        
-        HtmlOptions o = new HtmlOptions();
+
         int pageNumber = Integer.valueOf(request.getParameter("page"));
-        /*o.setPageNumbersToRender(Arrays.asList(pageNumber));
-        o.setPageNumber(pageNumber);
-        o.setCountPagesToRender(1);
-        o.setHtmlResourcePrefix(String.format(
-                "/page/resource?file=%s&page=%d&resource=",
-                filename,
-                pageNumber
-        ));*/
+
+        List<Integer> pageNumberstoRender = new ArrayList<>();
+        pageNumberstoRender.add(pageNumber);
+
+        HtmlOptions options = new HtmlOptions();
+
+        options.setPageNumbersToRender(pageNumberstoRender);
+        options.setPageNumber(pageNumber);
+        options.setCountPagesToRender(1);
+        options.setHtmlResourcePrefix("/page/resource?file="+filename+"&page="+pageNumber+"&resource=");
+
         String watermarkText = request.getParameter("watermarkText");
         if(watermarkText !=null && watermarkText.length()>0)
-        	o.setWatermark(Utils.getWatermark(watermarkText,request.getParameter("watermarkColor"),
+            options.setWatermark(Utils.getWatermark(watermarkText,request.getParameter("watermarkColor"),
         			request.getParameter("watermarkPosition"),request.getParameter("watermarkWidth")));
                 
-        List<PageHtml> list = Utils.loadPageHtmlList(handler, filename,o);
+        List<PageHtml> list = Utils.loadPageHtmlList(handler, filename,options);
         list.stream().filter(pageHtml -> pageHtml.getPageNumber() == pageNumber).findAny().ifPresent(pageHtml -> {
             String fullHtml = pageHtml.getHtmlContent();
             try {

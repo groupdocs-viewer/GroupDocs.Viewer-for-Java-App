@@ -53,6 +53,9 @@ public class PageResourceServlet
                         case Image:
                             response.setContentType("image/jpeg");
                             break;
+                        //case Graphics:
+                          //  response.setContentType("image/svg+xml");
+                            //break;
                         default:
                             response.setContentType("application/octet-stream");
                     }
