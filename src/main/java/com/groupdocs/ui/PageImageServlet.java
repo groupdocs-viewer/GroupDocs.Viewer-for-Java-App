@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.groupdocs.viewer.converter.options.ImageOptions;
 import com.groupdocs.viewer.domain.Transformation;
+import com.groupdocs.viewer.domain.containers.DocumentInfoContainer;
 import com.groupdocs.viewer.domain.image.PageImage;
 import com.groupdocs.viewer.domain.options.RotatePageOptions;
 import com.groupdocs.viewer.handler.ViewerImageHandler;
@@ -28,32 +29,81 @@ public class PageImageServlet
         extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        try
+        {
         response.setContentType("image/png");
         ViewerImageHandler handler = Utils.createViewerImageHandler();
         
-        ImageOptions o = new ImageOptions();
+        ImageOptions options = new ImageOptions();
         int pageNumber = Integer.valueOf(request.getParameter("page"));
-        o.setPageNumbersToRender(Arrays.asList(pageNumber));
-        o.setPageNumber(pageNumber);
-        o.setCountPagesToRender(1);
+        options.setPageNumbersToRender(Arrays.asList(pageNumber));
+        options.setPageNumber(pageNumber);
+        options.setCountPagesToRender(1);
 
         String watermarkText = request.getParameter("watermarkText");
         if(watermarkText!=null && watermarkText.length()>0)
-        	o.setWatermark(Utils.getWatermark(watermarkText,request.getParameter("watermarkColor"),
+        	options.setWatermark(Utils.getWatermark(watermarkText,request.getParameter("watermarkColor"),
         			request.getParameter("watermarkPosition"),request.getParameter("watermarkWidth")));
 
         String filename = request.getParameter("file");
+        String file=request.getParameter("file");
         if (Utils.isValidUrl(filename))
         	filename = Utils.downloadToStorage(filename);
 
+        String width= request.getParameter("width");
+        String height= request.getParameter("height");
+        String zoom= request.getParameter("zoom");
+        String rotate= request.getParameter("rotate");
 
-              List<PageImage> list = Utils.loadPageImageList(handler, filename, o);
+        if(width!=null && width.length()>0) {
+            if (zoom != null && zoom.length() > 0) {
+                //options.setWidth(Integer.parseInt(width) + Integer.parseInt(zoom));
+            } else {
+                //options.setWidth(Integer.parseInt(width));
+            }
+        }
+
+        if(height!=null && height.length()>0) {
+            if (zoom != null && zoom.length() > 0) {
+                options.setHeight(Integer.parseInt(height) + Integer.parseInt(zoom));
+            }
+        }
+
+        if(rotate!=null && rotate.length()>0) {
+            if (width != null && width.length() > 0) {
+
+                Integer side=options.getWidth();
+
+                DocumentInfoContainer documentInfoContainer = null;
+                documentInfoContainer = handler.getDocumentInfo(file);
+
+                int pageAngle = documentInfoContainer.getPages().get(pageNumber - 1).getAngle();
+                if (pageAngle == 90 || pageAngle == 270)
+                    options.setHeight(side);
+                else
+                    options.setWidth(side);
+
+                options.setTransformations(Transformation.Rotate);
+                handler.rotatePage(file, new RotatePageOptions(pageNumber,Integer.parseInt(rotate)));
+            }
+        }
+        else {
+            options.setTransformations(Transformation.None);
+            handler.rotatePage(file, new RotatePageOptions(pageNumber,0));
+
+        }
+
+        List<PageImage> list = Utils.loadPageImageList(handler, filename, options);
+
         list.stream().filter(
                 predicate -> predicate.getPageNumber() == pageNumber
         ).findAny().ifPresent(pageImage -> {
         	Utils.writeToResponse(pageImage.getStream(), response);
         	
         });
+        } catch (Exception x) {
+            throw new RuntimeException(x);
+        }
     }
 }
 

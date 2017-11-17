@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @WebServlet("/download/pdf")
 public class DownloadPdfServlet
@@ -23,7 +24,6 @@ public class DownloadPdfServlet
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        response.setContentType("application/pdf");
         String filename = request.getParameter("file");
         ViewerHtmlHandler handler = Utils.createViewerHtmlHandler();
         
@@ -38,6 +38,16 @@ public class DownloadPdfServlet
             pdf = handler.getPdfFile(filename,o).getStream();
         } catch (Exception x) {
             throw new RuntimeException(x);
+        }
+
+        if (Objects.equals(request.getParameter("isdownload"), "true"))
+        {
+            response.setContentType("application/octet-stream");
+            response.addHeader("content-disposition", "attachment; filename=" + filename.split("\\.")[0] + ".pdf");
+        }
+        else
+        {
+            response.setContentType("application/pdf");
         }
 
         Utils.writeToResponse(pdf, response);

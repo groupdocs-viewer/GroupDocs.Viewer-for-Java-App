@@ -11,9 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
@@ -68,7 +66,10 @@ public class AttachmentResourceServlet
 			                        case Image:
 			                            response.setContentType("image/jpeg");
 			                            break;
-			                        default:
+										//case Graphics:
+										//  response.setContentType("image/svg+xml");
+										//break;
+										default:
 			                            response.setContentType("application/octet-stream");
 									}
 				                    try (InputStream is = handler.getResource(filename, htmlResource)) {

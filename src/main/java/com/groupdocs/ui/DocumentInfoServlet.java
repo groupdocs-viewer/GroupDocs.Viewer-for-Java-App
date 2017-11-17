@@ -16,7 +16,7 @@ import com.groupdocs.viewer.domain.containers.DocumentInfoContainer;
 import com.groupdocs.viewer.domain.html.PageHtml;
 import com.groupdocs.viewer.handler.ViewerHtmlHandler;
 
-@WebServlet("/document/pages")
+@WebServlet("/document/info")
 public class DocumentInfoServlet
         extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
