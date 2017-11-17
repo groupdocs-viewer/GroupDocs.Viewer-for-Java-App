@@ -17,6 +17,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import org.apache.commons.io.FilenameUtils;
 
 @WebServlet("/download/pdf")
 public class DownloadPdfServlet
@@ -43,7 +44,8 @@ public class DownloadPdfServlet
         if (Objects.equals(request.getParameter("isdownload"), "true"))
         {
             response.setContentType("application/octet-stream");
-            response.addHeader("content-disposition", "attachment; filename=" + filename.split("\\.")[0] + ".pdf");
+            response.addHeader("content-disposition", "attachment; filename=" + FilenameUtils.removeExtension(filename) + ".pdf");
+            //filename.split(".")[filename.indexOf('.',filename.length()-5)]
         }
         else
         {
