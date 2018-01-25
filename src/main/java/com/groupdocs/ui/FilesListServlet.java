@@ -25,7 +25,7 @@ public class FilesListServlet
 
         List<FileDescription> tree = null;
         try {
-            tree = handler.loadFileTree().getFileTree();
+            tree = handler.getFileList().getFiles();
         } catch (Exception x) {
             throw new RuntimeException(x);
         }
