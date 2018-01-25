@@ -222,7 +222,7 @@ public class Utils {
     	return watermark;
     }
     
-    private static WatermarkPosition toWatermarkPosition(String watermarkPosition){
+    private static int toWatermarkPosition(String watermarkPosition){
     	if(watermarkPosition!=null && watermarkPosition.length()>0){
     		switch (watermarkPosition){
     			case "Diagonal":
@@ -246,4 +246,3 @@ public class Utils {
 			return WatermarkPosition.Diagonal;  
     }
 }
-
