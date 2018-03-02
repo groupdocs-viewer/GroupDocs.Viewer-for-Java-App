@@ -5,45 +5,25 @@ Java Modern UI Document Viewer that supports many different formats of documents
 ![GroupDocs.Viewer Modern UI](https://github.com/groupdocs-viewer/GroupDocs.Viewer-for-Java-App/blob/master/GroupDocs-Document-Viewer-Java-Screenshot.png)
 
 # Features
-+ Accepts more than 50 different formats of documents.
-+ Html Representation of the document.
-+ Image Representation of the document.
-+ Download/Open Document
-  * Download as PDF
-  * Download Original
-  * Open as PDF
-+ Display Emails Attachments.
-+ Display Emails Attachment's Thumbnails.
-+ Load File from URL.
-+ Load Default File.
-+ Watermark Insertion to the output pages.
-+ Toggle between HTML/Image Representation of file.
-+ Rotate the Image Representation of file.
++ Accepts more than 50 Different Formats of Documents
++ Html Representation of the Document
++ Image Representation of the Document
++ Download OR Open Document
++ Display Emails Attachments and Emails Attachment's Thumbnails
++ Load File from URL
++ Load Default Document
++ Browser & Upload File
++ Select File from Uploaded File List
++ Watermark Insertion to the Output Pages
++ Toggle between HTML/Image Representation of Document
++ Rotate the Image Representation of Document
 + Zooming in Image & HTML Representation
-  * Zoom-In
-  * Zoom-Out
-  * Zoom by Percentage Level
 + Paging in Image & HTML Representation
-  * Move to First Page
-  * Move to Last Page
-  * Move to Next Page
-  * Move to Previous Page
-  * Go to Manually Entered Page
-+ Show/Hide Tool from JS Parameters.
-  * Zooming
-  * Paging
-  * Downloads/Open Document
-  * Toggle Rendering
-  * Rotate
-  * Document Selection
-  * Thumbnail Panel
-  * Enable/Disable Right-Click/Context-Menu.
++ Search Text in HTML Representation
++ Print Document with OR without Watermark
++ Show/Hide Tool from JS Parameters
++ Enable/Disable Right-Click/Context-Menu
 + Configure Default Values from JS Parameters
-  * Watermark Properties.
-  * Default File Selection
-  * Default Zooming Level.
-  * Default Rotate Angle
-  * Default Document Rendering Mode (Image/HTML)
   
 # Pre-Requisites
 
