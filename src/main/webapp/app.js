@@ -522,22 +522,22 @@ ngApp.directive('iframeSetDimensionsOnload', [function () {
                 height = parseInt(height) + 50;
 
                 if (!ShowWatermark)
-                    element[0].contentWindow.document.body.style = "text-align: center !important;";
+                    element[0].contentWindow.document.body.style.cssText = "text-align: center !important;";
 
                 if (isImageToggle)
-                    element[0].contentWindow.document.body.style = "text-align: center !important;";
+                    element[0].contentWindow.document.body.style.cssText = "text-align: center !important;";
 
-                element[0].style = "height:" + parseInt(height) + "px!important; width:100%!important; ";
+                element[0].style.cssText = "height:" + parseInt(height) + "px!important; width:100%!important; ";
 
                 height = (height * (parseFloat(ZoomValue) < 1 ? 1 : parseFloat(ZoomValue)));
                 height = parseInt(height);
                 height = parseInt(height) + 10;
 
                 if (ZoomValue > 1) {
-                    element[0].style = "zoom: " + ZoomValue + "; -moz-transform: scale(" + ZoomValue + "); -moz-transform-origin: 0 0; -o-transform: scale(" + ZoomValue + "); -o-transform-origin: 0 0; -webkit-transform: scale(" + ZoomValue + "); -webkit-transform-origin: 0 0; height:" + height + "px !important; width:100%!important; overflow: visible !important;";
+                    element[0].style.cssText = "zoom: " + ZoomValue + "; -moz-transform: scale(" + ZoomValue + "); -moz-transform-origin: 0 0; -o-transform: scale(" + ZoomValue + "); -o-transform-origin: 0 0; -webkit-transform: scale(" + ZoomValue + "); -webkit-transform-origin: 0 0; height:" + height + "px !important; width:100%!important; overflow: visible !important;";
                 }
                 else {
-                    element[0].style = "zoom: " + ZoomValue + "; -moz-transform: scale(" + ZoomValue + "); -o-transform: scale(" + ZoomValue + "); -webkit-transform: scale(" + ZoomValue + "); height:" + height + "px !important; width:100%!important; overflow: visible !important;";
+                    element[0].style.cssText = "zoom: " + ZoomValue + "; -moz-transform: scale(" + ZoomValue + "); -o-transform: scale(" + ZoomValue + "); -webkit-transform: scale(" + ZoomValue + "); height:" + height + "px !important; width:100%!important; overflow: visible !important;";
                 }
 
                 var selectObj = document.getElementById('zoomselect');

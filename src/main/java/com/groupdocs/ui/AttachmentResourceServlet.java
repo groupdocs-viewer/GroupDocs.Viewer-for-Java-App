@@ -38,7 +38,7 @@ public class AttachmentResourceServlet
         String filename = request.getParameter("file");
         String attachmentName = request.getParameter("attachment");
         
-        String attachmentPath = Utils.getProjectProperty("cache.path")+"\\sample_msg\\attachments";
+        String attachmentPath = Utils.getProjectProperty("cache.path")+"\\"+filename.replace(".msg","_msg")+"\\attachments";
         String attachmentFile = attachmentPath+File.separator+attachmentName;
         
         String resourceName = request.getParameter("resource");  
@@ -48,8 +48,8 @@ public class AttachmentResourceServlet
 			List<AttachmentBase> attachments = documentInfo.getAttachments();
 			attachments.stream().filter(attachmentBase  -> attachmentBase.getName().equalsIgnoreCase(attachmentName)
 			).findAny().ifPresent(attachment ->{
-				List<PageHtml> list = Utils.loadPageHtmlListFromAttachment(handler, attachment, o); 
-        	//List<PageHtml> list = Utils.loadPageHtmlList(handler, attachmentFile, o);  	
+				List<PageHtml> list = Utils.loadPageHtmlListFromAttachment(handler, attachment, o);
+        	//List<PageHtml> list = Utils.loadPageHtmlList(handler, attachmentFile, o);
         	list.stream().filter(
 				pageHtml -> pageHtml.getPageNumber() == pageNumber
 				).findAny().ifPresent(
@@ -66,13 +66,14 @@ public class AttachmentResourceServlet
 			                        case Image:
 			                            response.setContentType("image/jpeg");
 			                            break;
-										//case Graphics:
+										//zcase Graphics:
 										//  response.setContentType("image/svg+xml");
 										//break;
 										default:
-			                            response.setContentType("application/octet-stream");
+											response.setContentType("image/svg+xml");
+											//response.setContentType("application/octet-stream");
 									}
-				                    try (InputStream is = handler.getResource(filename, htmlResource)) {
+				                    try (InputStream is = handler.getResource(attachmentFile, htmlResource)) {
 				                        Utils.writeToResponse(is, response);
 				                    } catch (Exception x) {
 				                        throw new RuntimeException(x);
