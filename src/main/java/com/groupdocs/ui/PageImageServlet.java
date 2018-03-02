@@ -33,7 +33,19 @@ public class PageImageServlet
         {
         response.setContentType("image/png");
         ViewerImageHandler handler = Utils.createViewerImageHandler();
-        
+
+        String rotate= request.getParameter("rotate");
+        if (rotate!=null && rotate.length()>0)
+        {
+            handler.clearCache();
+        }
+
+        String width= request.getParameter("width");
+        String height= request.getParameter("height");
+        String zoom= request.getParameter("zoom");
+        String filename = request.getParameter("file");
+        String file=request.getParameter("file");
+
         ImageOptions options = new ImageOptions();
         int pageNumber = Integer.valueOf(request.getParameter("page"));
         options.setPageNumbersToRender(Arrays.asList(pageNumber));
@@ -45,21 +57,14 @@ public class PageImageServlet
         	options.setWatermark(Utils.getWatermark(watermarkText,request.getParameter("watermarkColor"),
         			request.getParameter("watermarkPosition"),request.getParameter("watermarkWidth")));
 
-        String filename = request.getParameter("file");
-        String file=request.getParameter("file");
         if (Utils.isValidUrl(filename))
         	filename = Utils.downloadToStorage(filename);
 
-        String width= request.getParameter("width");
-        String height= request.getParameter("height");
-        String zoom= request.getParameter("zoom");
-        String rotate= request.getParameter("rotate");
-
         if(width!=null && width.length()>0) {
             if (zoom != null && zoom.length() > 0) {
-                //options.setWidth(Integer.parseInt(width) + Integer.parseInt(zoom));
+                options.setWidth(Integer.parseInt(width) + Integer.parseInt(zoom));
             } else {
-                //options.setWidth(Integer.parseInt(width));
+                options.setWidth(Integer.parseInt(width));
             }
         }
 
@@ -106,4 +111,3 @@ public class PageImageServlet
         }
     }
 }
-

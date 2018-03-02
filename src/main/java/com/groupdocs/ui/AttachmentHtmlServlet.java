@@ -37,11 +37,11 @@ public class AttachmentHtmlServlet
         int pageNumber = Integer.valueOf(request.getParameter("page"));
         
         HtmlOptions o = new HtmlOptions();
-        /*o.setPageNumbersToRender(Arrays.asList(pageNumber));
+        o.setPageNumbersToRender(Arrays.asList(pageNumber));
         o.setPageNumber(pageNumber);
         o.setCountPagesToRender(1);
         o.setHtmlResourcePrefix("/attachment/resource?file="+filename+"&attachment="+attachmentName+"&page="+pageNumber+"&resource=");
-        */String watermarkText = request.getParameter("watermarkText");
+        String watermarkText = request.getParameter("watermarkText");
         if(watermarkText!=null && watermarkText.length()>0)
         	o.setWatermark(Utils.getWatermark(watermarkText,request.getParameter("watermarkColor"),
         			request.getParameter("watermarkPosition"),request.getParameter("watermarkWidth")));
@@ -52,10 +52,10 @@ public class AttachmentHtmlServlet
                 pageNumber
         ));*/
         
-        /* 
-        String attachmentPath = Utils.getProjectProperty("cache.path")+"\\sample_msg\\attachments";
+
+        String attachmentPath = Utils.getProjectProperty("cache.path")+"\\"+filename.replace(".msg","_msg")+"\\attachments";
         String attachmentFile = attachmentPath+File.separator+attachmentName;
-        
+
         File theDir = new File(attachmentPath);
         if (theDir.exists()){
 			List<PageHtml> pages = Utils.loadPageHtmlList(handler,attachmentFile, o);
@@ -67,7 +67,7 @@ public class AttachmentHtmlServlet
 	                throw new UncheckedIOException(x);
 	            }
 	        });
-        }else{*/
+        }else{
 			try {
 				DocumentInfoContainer documentInfo = handler.getDocumentInfo(filename);
 				List<AttachmentBase> attachments = documentInfo.getAttachments();
@@ -87,6 +87,6 @@ public class AttachmentHtmlServlet
 				//throw new FileNotFoundException();
 				System.out.println("Exception in attach html:"+e.getMessage());
 			}
-       /* }*/
+        }
     }
 }

@@ -9,7 +9,6 @@ iframe
 {
     width: 100%;
     margin: 0px;
-    text-align: center;
     background-color: #fff;
     border: 0;
     border-bottom: solid 5px rgba(0,0,0,.2);
@@ -35,4 +34,58 @@ iframe
     border-radius: 5px;
     display: inline-block;
     position: relative;
+}
+
+table
+{
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table td, th
+{
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+table tr:nth-child(even)
+{
+    background-color: #f2f2f2;
+}
+
+table tr:hover
+{
+    background-color: #ddd;
+}
+
+table th
+{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #080b85;
+    color: white;
+}
+
+.fileLink
+{
+    cursor: pointer;
+    color: #0e1196;
+}
+.input_search
+{
+    float: left;
+    width: 150px;
+    height: 27px;
+    margin: 7px 3px 0;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    font: 14px/20px "PT Sans",Helvetica,Arial,sans-serif;
+    border: 0;
+    padding: 5px 30px 5px;
+    -webkit-box-shadow: 0 2px 5px 2px rgba(0,0,0,0.2) inset;
+    -moz-box-shadow: 0 2px 5px 2px rgba(0,0,0,0.2) inset;
+    box-shadow: 0 2px 5px 2px rgba(0,0,0,0.2) inset;
 }
